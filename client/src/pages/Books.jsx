@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom';
 
 function Books() {
     const [books, setBooks] = useState([]);
@@ -23,6 +24,7 @@ function Books() {
             <p>{book.LastName}</p>
             </div>
         ))}
+        <button><Link to={"/add"}>ADD</Link></button>
     </div>
   )
 }
