@@ -19,9 +19,9 @@ function Books() {
     <div>
         <h1>Hello World!</h1>
         {books.map(book=>(
-            <div key={book.PersonID}>
-            <p>{book.FirstName}</p>
-            <p>{book.LastName}</p>
+            <div key={book.id}>
+            <p>{book.title}</p>
+            <p>{book.desc}</p>
             </div>
         ))}
         <button><Link to={"/add"}>ADD</Link></button>

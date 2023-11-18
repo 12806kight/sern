@@ -1,36 +1,31 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
-function Add() {
+
+const Add = () => {
   const[input, setInput] = useState({
-    FirstName : "",
-    LastName : "" 
+    title : "",
+    desc : "" ,
+    cover: ""
   })
 
+  const navigate = useNavigate();
   
-  function handleChange(event){
-    const {name , value} = event.target;
-        setInput(previousNotes =>{
-            return {
-                ...previousNotes,
-                [name] : value
-            }
-        })
+  const handleChange = (e) =>{
+    setInput(prev=>({...prev, [e.target.name]: e.target.value}))
+    console.log(input);
   }
 
-  const hc = async(event)=>{
-    event.preventDefault();
-  
-    setInput({
-      FirstName: "",
-      LastName: ""
-    })
-
-    try{
-      const res = await axios.post("http://localhost:8800/books", input);
-      setBooks(res.data)
-  }catch(err){
-      console.log(err);
-  }
+  const handleClick = async e =>{
+   e.preventDefault();
+   try{
+    console.log(input)
+    await axios.post("http://localhost:8800/books", input)
+    navigate("/");
+    }catch(err){
+    console.log(err)
+   }
 }
 
     
@@ -39,9 +34,10 @@ function Add() {
   return (
     <div>
       <form>
-        <input type="text" placeholder="FirstName" onChange={handleChange} name="FirstName" value={input.FirstName}></input>
-        <input type="text" placeholder="LastName" onChange={handleChange} name="LastName"value={input.LastName}></input>
-        <button onClick={hc}>ADDED</button>
+        <input type="text" placeholder="FirstName" onChange={handleChange} name="title"></input>
+        <input type="text" placeholder="LastName" onChange={handleChange} name="desc"></input>
+        <input type="text" placeholder="LastName" onChange={handleChange} name="cover"></input>
+        <button onClick={handleClick}>Add</button>
       </form>
       
     </div>
